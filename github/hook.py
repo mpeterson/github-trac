@@ -101,7 +101,8 @@ class CommitHook:
         
         msg = commit['message']
         note = "Changeset: %s" % commit['id']
-        msg = "%s \n %s" % (msg, note)
+        url = "URL: %s" % commit['url']
+        msg = "%s \n * %s \n * %s" % (msg, note, url)
         author = commit['author']['name']
         timestamp = datetime.now(utc)
         
