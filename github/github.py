@@ -15,6 +15,7 @@ class GithubPlugin(Component):
     key = Option('github', 'apitoken', '', doc="""Your GitHub API Token found here: https://github.com/account, """)
     closestatus = Option('github', 'closestatus', '', doc="""This is the status used to close a ticket. It defaults to closed.""")
     browser = Option('github', 'browser', '', doc="""Place your GitHub Source Browser URL here to have the /browser entry point redirect to GitHub.""")
+    autofetch = Option('github', 'autofetch', '', doc="""Should we auto fetch the repo when we get a commit hook from GitHub.""")
     repo = Option('trac', 'repository_dir' '', doc="""This is your repository dir""")
 
     def __init__(self):
@@ -109,11 +110,13 @@ class GithubPlugin(Component):
             for i in jsondata['commits']:
                 self.hook.process(i, status)
 
-        repo = Git(self.repo)
 
-        try:
-          repo.execute(['git', 'fetch'])
-        except:
-          self.env.log.debug("git fetch failed!")
+        if self.autofetch:
+            repo = Git(self.repo)
+
+            try:
+              repo.execute(['git', 'fetch'])
+            except:
+              self.env.log.debug("git fetch failed!")
 
 
