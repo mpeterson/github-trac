@@ -35,6 +35,9 @@ To install this Trac Plugin:
         apitoken = YOUR GITHUB API TOKEN
         closestatus = closed (This is optional, defaults to closed
         browser = http://github.com/davglass/tree/master
+
+        #Optional - perform a fetch on the local git repository
+        autofetch = true
         
     5. Go to the Admin page for your project on GitHub. Then select the services tab.
         Under the: Post-Receive URLs
